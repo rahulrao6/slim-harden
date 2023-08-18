@@ -1,14 +1,16 @@
 description: >
-  This command creates a instrumented image.
-# What will this command do?
-# Descriptions should be short, simple, and clear.
+  This command instruments the provided container image.
+  Instrumentation adds monitoring and diagnostic tools to the image, allowing for detailed analysis during runtime.
+  It's a crucial step before hardening to understand the image's behavior.
+
 parameters:
   sourceImage:
     type: string
-    description: "Image to Process"
+    description: "The original container image that will be instrumented."
 steps:
   - run:
       name: INSTRUMENTATION
+      # The 'SOURCEIMAGE' environment variable is set to the image provided by the user.
       environment:
         SOURCEIMAGE: << parameters.sourceImage >>
       command: <<include(scripts/cli_instrument.sh)>>

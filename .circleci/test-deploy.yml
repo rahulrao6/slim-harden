@@ -1,13 +1,12 @@
 version: 2.1
 orbs:
-  # Your orb will be automatically injected here during the pipeline.
-  # Reference your orb's jobs and commands below as they will exist when built.
+  # The orb is auto-injected into the pipeline.
+  # Below, reference the jobs and commands as they appearpost-build.
   orb-tools: circleci/orb-tools@11.5
-  # The orb definition is intentionally not included here. It will be injected into the pipeline.
   slim-shield: slimdevops/slim-shield@dev:<<pipeline.git.revision>>
 
-# Use this tag to ensure test jobs always run,
-# even though the downstream publish job will only run on release tags.
+
+# Ensure test jobs always execute, while the publish job only runs on release tags.
 filters: &filters
   tags:
     only: /.*/
@@ -20,8 +19,8 @@ release-filters: &release-filters
     only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
 jobs:
   run-instrumented-container:
-    docker: # Each job requires specifying an executor
-    # (either docker, macos, or machine), see
+    # Specifies the type of executor for the job (docker,macos, or machine)
+    docker: 
       - image: cimg/node:current
     steps:
       - checkout
